@@ -67,12 +67,17 @@ function validarCompra(cantidadSeleccionada) {
     if (cantidadSeleccionada[i] > stock[i]) {
       validate = {
         success: false,
-        message: `No disponemos de suficientes unidades de ${productos[i]}`
+        message: `La compra no se realizo, ya que no disponemos de suficientes unidades de ${productos[i]}`
       } 
       break;
-    } else {
-      /* Actualiza el stock disponible, restando la cantidad ingresada */
-      stock[i]-=cantidadSeleccionada[i];
+    } 
+  }
+  /* Si todos los productos estan disponibles, se actualiza el stock */
+  if(validate.success) {
+    for (let i = 0; i < stock.length;i++){
+        /* Actualiza el stock disponible, restando la cantidad ingresada */
+        stock[i]-=cantidadSeleccionada[i];
+
     }
   }
   return validate
