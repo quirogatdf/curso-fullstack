@@ -67,14 +67,14 @@ export class Blackjack extends Casino {
       console.log(`Su monto disponible es ${super.getMontoDisponible()}`.bgRed);
     };
 
-    if ((totalJugador < 21 && (totalJugador > totalCrupier))) {
+    if ((totalJugador < 21 && (totalJugador > totalCrupier)) || (totalCrupier > 21 && totalJugador<21)) {
       let nuevoSaldo = (super.getMontoDisponible() + this.montoApuesta * 2);
       super.setMontoDisponible(nuevoSaldo);
       console.log(`El jugador ha ganado`.green);
       console.log(`Su monto disponible es ${nuevoSaldo}` .bgGreen);
     }
 
-    if ((totalCrupier < 21 && (totalCrupier > totalJugador) || (totalJugador > 21))) {
+    if ((totalCrupier < 21 && (totalCrupier > totalJugador)) || (totalJugador > 21 && totalCrupier<21)) {
       console.log(`El crupier ha ganado`.red);
       console.log(`Su monto disponible es ${super.getMontoDisponible()}`.bgRed);
     }
