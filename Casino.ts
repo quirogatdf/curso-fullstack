@@ -5,15 +5,16 @@ colors.enable();
 export class Casino {
   private montoDisponible: number;
 
-
-  constructor() {
-    this.montoDisponible = 100;
-  }
+  /* Setter and Getter */
   public setMontoDisponible(monto: number): void {
     this.montoDisponible = monto;
   }
   public getMontoDisponible(): number {
     return this.montoDisponible
+  }
+  /* Constructor */
+  constructor() {
+    this.montoDisponible = 100;
   }
   public ingresarApuesta(monto: number): boolean {
     if (this.montoDisponible < monto) {

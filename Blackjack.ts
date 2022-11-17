@@ -56,16 +56,20 @@ export class Blackjack extends Casino {
 
     /* Verifica quien fue el ganador */
     if ((totalJugador == 21) && (totalCrupier != 21)) {
-      
+      let nuevoSaldo = (super.getMontoDisponible() + this.montoApuesta * 2.5);
+      super.setMontoDisponible(nuevoSaldo);
       console.log('Blackjack! > El jugador ah ganado'.green);
+      console.log(`Su monto disponible es ${nuevoSaldo}` .bgGreen);
     };
 
     if ((totalCrupier == 21) && (totalJugador != 21)) {
       console.log('Blackjack! > El Crupier ah ganado'.red);
+      console.log(`Su monto disponible es ${super.getMontoDisponible()}`.bgRed);
     };
 
     if ((totalJugador < 21 && (totalJugador > totalCrupier))) {
       let nuevoSaldo = (super.getMontoDisponible() + this.montoApuesta * 2);
+      super.setMontoDisponible(nuevoSaldo);
       console.log(`El jugador ha ganado`.green);
       console.log(`Su monto disponible es ${nuevoSaldo}` .bgGreen);
     }
