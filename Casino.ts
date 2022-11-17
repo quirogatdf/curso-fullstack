@@ -22,7 +22,7 @@ export class Casino {
       return false;
     } else {
       this.montoDisponible -= monto;
-      console.log(`Monto disponible ${this.montoDisponible}`.bgBlue)
+      // console.log(`Monto disponible ${this.montoDisponible}`.bgBlue)
       return true;
     }
   }

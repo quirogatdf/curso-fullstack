@@ -55,6 +55,7 @@ export class Blackjack extends Casino {
     console.log(`${totalCrupier}`.yellow)
 
     /* Verifica quien fue el ganador */
+    console.log(`\nRESULTADO`.bold);
     if ((totalJugador == 21) && (totalCrupier != 21)) {
       let nuevoSaldo = (super.getMontoDisponible() + this.montoApuesta * 2.5);
       super.setMontoDisponible(nuevoSaldo);

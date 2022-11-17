@@ -1,4 +1,4 @@
-import  readlyneSync  from 'readline-sync';
+import readlyneSync from 'readline-sync';
 import { Blackjack } from "./Blackjack";
 
 const startGame = readlyneSync.question(`
@@ -9,20 +9,30 @@ const startGame = readlyneSync.question(`
 ####################################\n
 Ingrese una opcion: `.blue.bold);
 
-if ( startGame === '1' ) {
+if (startGame === '1') {
+  let continued: boolean = true;
   const blackjack = new Blackjack();
-  const isApuesta : number = parseInt(readlyneSync.question(`Ingresar monto de la apuesta: $`.yellow));
-  if (!isNaN(isApuesta)) {
-    
-    const isValited = blackjack.ingresarApuesta(isApuesta);
-    if (isValited) {
-      blackjack.generarMano();
-      blackjack.verificarGanador();
-    }
 
-  } else {
-    console.log(`Fin del juego, el monto ingresado es inválido`.bgRed)
+  while (continued) {
+    
+    const isApuesta: number = parseInt(readlyneSync.question(`Ingresar monto de la apuesta: $`.yellow));
+    if (!isNaN(isApuesta)) {
+
+      const isValited = blackjack.ingresarApuesta(isApuesta);
+      if (isValited) {
+        blackjack.generarMano();
+        blackjack.verificarGanador();
+      }
+    } else {
+      console.log(`Fin del juego, el monto ingresado es inválido`.bgRed)
+    }
+    if (readlyneSync.keyInYN('Desea jugar nuevamente?')) {
+      continued = true;
+    } else {
+      continued = false;
+    }
   }
 } else {
   console.log(`Fin del juego, su monto total es `)
 }
+
