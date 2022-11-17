@@ -1,0 +1,79 @@
+import colors from 'colors';
+import { Casino } from "./Casino";
+
+colors.enable();
+
+export class Blackjack extends Casino {
+  constructor() {
+    super();
+  }
+  private montoApuesta: number = 0;
+
+  private manoJugador: number[] = [0, 0];
+  private puntosJugador: number = 0;
+
+  private manoCrupier: number[] = [0, 0];
+  private puntosCrupier: number = 0;
+
+  public generarCarta(): number {
+    let valorFinal: number = 0;
+    let carta: number = Math.ceil(Math.random() * 15)
+    if (carta >= 10 && carta < 14) {
+      valorFinal = 10;
+    } else if (carta == 14) {
+      valorFinal = 11;
+    } else {
+      valorFinal = carta
+    }
+    return valorFinal;
+  }
+
+
+  public generarMano(): void {
+    this.manoJugador[0] = this.generarCarta();
+    this.manoJugador[1] = this.generarCarta();
+    this.manoCrupier[0] = this.generarCarta();
+    this.manoCrupier[1] = this.generarCarta();
+  }
+  public ingresarApuesta(monto: number): boolean {
+    this.montoApuesta = monto;
+    return super.ingresarApuesta(monto);
+  }
+  public verificarGanador() {
+    /* Inicializar variables */
+    let totalJugador = 0;
+    let totalCrupier = 0;
+
+    /* Se suman los puntajes */
+    totalJugador = this.manoJugador[0] + this.manoJugador[1];
+    totalCrupier = this.manoCrupier[0] + this.manoCrupier[1];
+
+    /* Muestra por consola los puntajes obtenidos */
+    console.log(`Puntos del Jugador`.bold);
+    console.log(`${totalJugador}`.yellow)
+    console.log(`\nPuntos del Crupier`.bold);
+    console.log(`${totalCrupier}`.yellow)
+
+    /* Verifica quien fue el ganador */
+    if ((totalJugador == 21) && (totalCrupier != 21)) {
+      
+      console.log('Blackjack! > El jugador ah ganado'.green);
+    };
+
+    if ((totalCrupier == 21) && (totalJugador != 21)) {
+      console.log('Blackjack! > El Crupier ah ganado'.red);
+    };
+
+    if ((totalJugador < 21 && (totalJugador > totalCrupier))) {
+      let nuevoSaldo = (super.getMontoDisponible() + this.montoApuesta * 2);
+      console.log(`El jugador ha ganado`.green);
+      console.log(`Su monto disponible es ${nuevoSaldo}` .bgGreen);
+    }
+
+    if ((totalCrupier < 21 && (totalCrupier > totalJugador) || (totalJugador > 21))) {
+      console.log(`El crupier ha ganado`.red);
+      console.log(`Su monto disponible es ${super.getMontoDisponible()}`.bgRed);
+    }
+  }
+
+}
