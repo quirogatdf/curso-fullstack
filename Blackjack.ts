@@ -1,4 +1,5 @@
 import colors from 'colors';
+import fs from 'fs';
 import { Casino } from "./Casino";
 
 colors.enable();
@@ -56,29 +57,45 @@ export class Blackjack extends Casino {
 
     /* Verifica quien fue el ganador */
     console.log(`\nRESULTADO`.bold);
+    let msg : string ="";
     if ((totalJugador == 21) && (totalCrupier != 21)) {
       let nuevoSaldo = (super.getMontoDisponible() + this.montoApuesta * 2.5);
       super.setMontoDisponible(nuevoSaldo);
-      console.log('Blackjack! > El jugador ah ganado'.green);
+      msg = 'Blackjack! > El jugador ah ganado';
+      console.log(msg .green);
       console.log(`Su monto disponible es ${nuevoSaldo}` .bgGreen);
     };
 
     if ((totalCrupier == 21) && (totalJugador != 21)) {
-      console.log('Blackjack! > El Crupier ah ganado'.red);
+      msg = 'Blackjack! > El Crupier ah ganado'
+      console.log(msg .red);
       console.log(`Su monto disponible es ${super.getMontoDisponible()}`.bgRed);
     };
 
     if ((totalJugador < 21 && (totalJugador > totalCrupier)) || (totalCrupier > 21 && totalJugador<21)) {
       let nuevoSaldo = (super.getMontoDisponible() + this.montoApuesta * 2);
       super.setMontoDisponible(nuevoSaldo);
-      console.log(`El jugador ha ganado`.green);
+      msg =`El jugador ha ganado`
+      console.log(msg .green);
       console.log(`Su monto disponible es ${nuevoSaldo}` .bgGreen);
     }
 
     if ((totalCrupier < 21 && (totalCrupier > totalJugador)) || (totalJugador > 21 && totalCrupier<21)) {
-      console.log(`El crupier ha ganado`.red);
+      msg = `El crupier ha ganado`;
+      console.log(msg .red);
       console.log(`Su monto disponible es ${super.getMontoDisponible()}`.bgRed);
     }
+    if ((totalJugador > 21 && totalCrupier > 21) || (totalJugador == totalCrupier)) {
+      msg = `Empate`;
+      console.log(msg.yellow);
+      this.setMontoDisponible(this.getMontoDisponible() + this.montoApuesta);
+      console.log(`Su monto disponible es ${super.getMontoDisponible()}`.bgYellow);
+
+    }
+
+    super.setFecha(new Date);
+    let fechaLog = super.getFecha();
+    fs.appendFile('Blackjack.txt', ` ${fechaLog} >>> ${msg}\n`, (err)=>{});
   }
 
 }
