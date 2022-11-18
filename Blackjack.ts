@@ -90,7 +90,6 @@ export class Blackjack extends Casino {
       console.log(msg.yellow);
       this.setMontoDisponible(this.getMontoDisponible() + this.montoApuesta);
       console.log(`Su monto disponible es ${super.getMontoDisponible()}`.bgYellow);
-
     }
 
     super.setFecha(new Date);

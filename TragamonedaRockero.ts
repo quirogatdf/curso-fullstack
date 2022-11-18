@@ -1,10 +1,9 @@
-// import { Tragamoneda } from "./Tragamoneda";
+import { Tragamoneda } from "./Tragamoneda";
 
-// export class TragamonedaRockero extends Tragamoneda{
-//   public apostar() {
-//     console.log('Hello');
-//   }
-  
-  
+export class TragamonedaRockero extends Tragamoneda{
+  public verificaPremio(): void {
+    console.log('En desarrollo...');
+  }
 
-// }
+   
+}

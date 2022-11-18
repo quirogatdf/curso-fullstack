@@ -1,5 +1,6 @@
 import readlineSync from 'readline-sync';
 import { Blackjack } from "./Blackjack";
+import { TragamonedaRockero } from './TragamonedaRockero';
 
 
 
@@ -12,15 +13,18 @@ const selectedGame = readlineSync.keyInSelect(gamesAvailable, 'Bienvenido, que J
 
 switch (selectedGame) {
   case 0:
-    console.log(`Juego disponible, proximamente`.red);
+    /* Tragamoneda Rockero */
+    console.log(`Resultado de su tirada`.rainbow);
+    const tragamonedaRockero = new TragamonedaRockero();
+    tragamonedaRockero.generarValores(3);
+
     break;
   case 1:
     console.log(`Juego disponible, proximamente`.red);
     break;
-    /* Inicia Blackjack */
+
   case 2: {
-    
-    
+    /* Inicia Blackjack */
     const startGame = readlineSync.question(`
 ####################################\r
 # Desea iniciar una nueva partida? #\r
